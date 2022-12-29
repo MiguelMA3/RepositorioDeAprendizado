@@ -1,0 +1,48 @@
+<meta charset="UTF-8">
+
+<script>
+
+    function pulaLinha() {
+
+        document.write("<br>");
+        document.write("<br>");
+}
+
+    function mostra(frase) {
+
+        document.write(frase);
+        pulaLinha();
+}
+
+var numero = 30
+
+mostra ("Vamos contar?");
+
+while(numero <= 40) {
+
+	  if(numero == 33) {
+        numero = numero + 1;
+        }
+        if(numero == 37) {    
+            numero = numero + 1;
+        }
+        else {
+        mostra(numero);
+        numero = numero + 1; 
+        }
+}
+
+mostra ("FIM");
+
+mostra ("Agora vamos descer de 20 a 0");
+
+var numero = 20
+
+while(numero >= 0) {
+	mostra (numero);
+	numero = numero - 1;
+}
+
+mostra ("FIM");
+
+</script>

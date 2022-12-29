@@ -1,0 +1,25 @@
+<meta charset="UTF-8">
+
+<h3>Álcool ou Gasolina?</h3>
+<br>
+<script>
+
+var tanque = 40
+var caminhocomgasolina = 480
+
+document.write("Meu carro tem um tanque de " + tanque + " litros. ");
+document.write("Abastecendo-o com gasolina e usando todo o tanque, fiz um caminho de " + caminhocomgasolina + " quilômetros."); 
+
+var consumodegasolina = caminhocomgasolina / tanque
+
+document.write("<br>O consumo foi de " + consumodegasolina + " litros por quilômetro rodado.");
+
+var caminhocomalcool = 300
+var consumodealcool = caminhocomalcool / tanque
+var gasolinaxalcool = consumodegasolina - consumodealcool
+
+document.write("<br> Com álcool, o mesmo tanque de " + tanque + " litros durou " + caminhocomalcool + " quilômetros.");
+document.write("<br>O consumo foi de " + consumodealcool + " litros por quilômetro rodado.")
+document.write("A diferença é de " + gasolinaxalcool + " .")
+
+</script>
