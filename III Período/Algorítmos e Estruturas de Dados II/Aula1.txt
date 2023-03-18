@@ -1,0 +1,28 @@
+Como armazenar dados
+
+Memória
+- Principal: RAM, Cache, Registradores
+Armazena de forma Temporária
+- Secundária: HD, SSD, Pendrive, CD
+Armazena de forma Permanente
+
+O registrador é a memória mais rápida.
+Sistemas de n bits possuem n registradores, ou seja, 64 bits é igual a 64 registradores.
+
+-
+Arquivos em C podem ser em texto e binário.
+- Texto: Sequência de linhas, onde cada linha contém zero ou mais caracteres e termina com um \n.
+"Visto como Texto"\n
+- Binário: Modo que a máquina compreende
+"Semelhante na memória"
+
+-
+Em C usa-se o 'FILE' para interagir com arquivos.
+
+-
+Funções para trabalhar arquivo em C
+fopen() - abre um arquivo
+fclose() - fecha um arquivo
+ferror() - retorna 'true' se houver erros
+fputc() - escreve um caracter em um arquivo
+fgetc() - lê um caracter de um arquivo
