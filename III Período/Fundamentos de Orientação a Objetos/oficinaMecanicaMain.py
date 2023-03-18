@@ -18,3 +18,8 @@ class Cliente(Pessoa):
   
   def pagar():
     pass;
+
+class Automovel:
+  __init__(self, modelo, ano):
+    modelo = __self.modelo;
+    ano = __self.ano;
