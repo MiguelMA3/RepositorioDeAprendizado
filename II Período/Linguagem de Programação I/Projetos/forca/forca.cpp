@@ -1,23 +1,21 @@
-#include <stdio.h>  // Inclui a biblioteca com as fun��es de Entrada e Sa�da
-#include <stdlib.h> // Inclui a biblioteca com fun��es b�sicas e que podem ser �teis
-#include <string.h> // Biblioteca para manipula��o de strings
-#include <time.h>   // Biblioteca com fun��es relacionadas ao tempo
-#include "forca.h"  // Biblioteca espec�fica do projeto
+#include <stdio.h>  // Inclui a biblioteca com as funções de Entrada e Saída
+#include <stdlib.h> // Inclui a biblioteca com funções básicas e que podem ser úteis
+#include <string.h> // Biblioteca para manipulação de strings
+#include <time.h>   // Biblioteca com funções relacionadas ao tempo
+#include "forca.h"  // Biblioteca específica do projeto
 
-// Decarando vari�veis globais
+// Decarando variáveis globais
 char palavrasecreta[TAMANHO_PALAVRA];
 char chutes[26];
 int chutesdados = 0;
 
-// Verifica se um caractere est� no vetor
+// Verifica se um caractere está no vetor
 int letraexiste(char letra) {
-	
-	for(int j = 0; j < strlen(palavrasecreta); j++) {
-		if (letra == palavrasecreta[j]) {
+	for(int i = 0; i < strlen(palavrasecreta); i++) {
+		if (letra == palavrasecreta[i]) {
 			return 1;
 		}
 	}
-	
 	return 0;
 }
 
@@ -26,12 +24,10 @@ int chuteserrados() {
 	int erros = 0;
 
 	for(int i = 0; i < chutesdados; i++) {
-
 		if(!letraexiste(chutes[i])) { //
 			erros++;
-		}	
+		}
 	}
-
 	return erros;
 }
 
@@ -47,7 +43,6 @@ int ganhou() {
 		return 0;
 		}
 	}
-
 	return 1;
 }
 
@@ -65,9 +60,9 @@ void chuta() {
 	scanf(" %c", chute);
 
 	if(letraexiste(chute)) {
-		printf("Você acertou: a palavra tem a letra %c\n\n", chute);
+		printf("VocÃª acertou: a palavra tem a letra %c\n\n", chute);
 	} else {
-		printf("\nVocê errou: a palavra NÃO tem a letra %c\n\n", chute);
+		printf("\nVocÃª errou: a palavra NÃƒO tem a letra %c\n\n", chute);
 	}
 
 	chutes[chutesdados] = chute;
@@ -92,8 +87,8 @@ void desenhaforca() {
 
 	int erros = chuteserrados(); //
 
-	/* Refatore o código dessa função
-	para que sejam impressas as variáveis:
+	/* Refatore o cÃ³digo dessa funÃ§Ã£o
+	para que sejam impressas as variÃ¡veis:
 
 	char cabeca[3] = "   ";  (_)
 	char bracos[3] = "   ";  \|/
@@ -135,7 +130,7 @@ void escolhepalavra() {
 	
 	//
 	if(f == 0) {
-		printf("Banco de dados de palavras não disponível\n\n");
+		printf("Banco de dados de palavras nÃ£o disponÃ­vel\n\n");
 		exit(1);
 	}
 
@@ -159,20 +154,20 @@ void escolhepalavra() {
 void adicionapalavra() {
 	char quer;
 
-	printf("Você deseja adicionar uma nova palavra no jogo (S/N)?");
+	printf("VocÃª deseja adicionar uma nova palavra no jogo (S/N)?");
 	scanf(" %c", quer);
 	
 	if(quer == 'S') {
 	char novapalavra[TAMANHO_PALAVRA];
 	
-	printf("Digite a nova palavra, em letras maiúsculas: ");
+	printf("Digite a nova palavra, em letras maiÃºsculas: ");
 	scanf("%s", novapalavra);
 	
 	FILE* f; //
 	
 	f = fopen("palavras.txt", "r+"); //
 	if(f == 0) {
-	printf("Banco de dados de palavras não disponível\n\n");
+	printf("Banco de dados de palavras nÃ£o disponÃ­vel\n\n");
 	exit(1);
 	}
 	
@@ -189,9 +184,9 @@ void adicionapalavra() {
 	}
 }
 
-// Fun��o que imprime a mensagem de vit�ria
+// Função que imprime a mensagem de vitória
 void parabens() {
-	printf("\nParab�ns, voc� ganhou!\n\n");
+	printf("\nParabéns, você ganhou!\n\n");
 	
 	printf("       ___________      \n");
 	printf("      '._==_==_=_.'     \n");
@@ -205,9 +200,9 @@ void parabens() {
 	printf("        '-------'       \n\n");
 }
 
-// Fun��o que imprime a mensagem de derrota
+// Função que imprime a mensagem de derrota
 void enforcado(){
-	printf("\nLamento, voc� foi enforcado!\n");
+	printf("\nLamento, vocÊ foi enforcado!\n");
 	printf("A palavra era **%s**\n\n", palavrasecreta);
 	
 	printf("    _______________         \n");
@@ -228,27 +223,27 @@ void enforcado(){
 	printf("       \\_______/           \n");
 }
 
-// Fun��o principal
+// Função principal
 int main() {
 	abertura(); //
 	escolhepalavra(); //
 
-	// controla a intera��oo dos chutes dados pelo jogador
+	// controla a interaçãoo dos chutes dados pelo jogador
 	do {
 		desenhaforca(); //
 		chuta(); //
 	} while (!ganhou() && !enforcou()); //
 
 	if(ganhou()) { // Compara se o jogador ganhou o jogo
-		parabens(); // Imprime a mensagem de vit�ria
+		parabens(); // Imprime a mensagem de vitória
 	} else {
 		enforcado(); // Imprime a mensagem de derrota
 	}
 
 	/* Implemente uma melhoria no projeto 
-	a fim de permitir que o usuário insira 
+	a fim de permitir que o usuÃ¡rio insira 
 	uma nova palavra antes de iniciar a forca.
 	*/
 
-	adicionapalavra(); // Permite ao usu�rio acrescentar uma nova palavra ao jogo
+	adicionapalavra(); // Permite ao usuário acrescentar uma nova palavra ao jogo
 }
