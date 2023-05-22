@@ -1,35 +1,35 @@
 import pygame
 
-AMARELO = (255, 255, 0)
-PRETO = (0, 0, 0)
-VELOCIDADE = 0.5
-RAIO = 30
+yellow = (255, 255, 0)
+black = (0, 0, 0)
+vel = 0.5
+raio = 30
 pygame.init()
 
 tela = pygame.display.set_mode((640, 480), 0)
 x = 10
 y = 10
-vel_x = VELOCIDADE
-vel_y = VELOCIDADE
+vel_x = vel
+vel_y = vel
 
 while True:
     # Calcula as regras    
     x = x + vel_x
     y = y + vel_y
 
-    if x + RAIO > 640:
-        vel_x = -VELOCIDADE
-    if x - RAIO < 0:
-        vel_x = VELOCIDADE
+    if x + raio > 640:
+        vel_x = -vel
+    if x - raio < 0:
+        vel_x = vel
 
-    if y + RAIO > 480:
-        vel_y = -VELOCIDADE
-    if y - RAIO < 0:
-        vel_y = VELOCIDADE
+    if y + raio > 480:
+        vel_y = -vel
+    if y - raio < 0:
+        vel_y = vel
 
     # Pinta
-    tela.fill((PRETO))
-    pygame.draw.circle(tela, AMARELO, (int(x), int(y)), 30, 0)
+    tela.fill((black))
+    pygame.draw.circle(tela, yellow, (int(x), int(y)), 30, 0)
     pygame.display.update()
 
 
