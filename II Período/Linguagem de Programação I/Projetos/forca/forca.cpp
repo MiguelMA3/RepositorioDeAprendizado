@@ -1,15 +1,13 @@
-#include <stdio.h>  // Inclui a biblioteca com as funções de Entrada e Saída
-#include <stdlib.h> // Inclui a biblioteca com funções básicas e que podem ser úteis
-#include <string.h> // Biblioteca para manipulação de strings
-#include <time.h>   // Biblioteca com funções relacionadas ao tempo
-#include "forca.h"  // Biblioteca específica do projeto
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include "forca.h"
 
-// Decarando variáveis globais
 char palavrasecreta[TAMANHO_PALAVRA];
 char chutes[26];
 int chutesdados = 0;
 
-// Verifica se um caractere está no vetor
 int letraexiste(char letra) {
 	for(int i = 0; i < strlen(palavrasecreta); i++) {
 		if (letra == palavrasecreta[i]) {
@@ -18,25 +16,22 @@ int letraexiste(char letra) {
 	}
 	return 0;
 }
-
-// 
+ 
 int chuteserrados() {
 	int erros = 0;
 
 	for(int i = 0; i < chutesdados; i++) {
-		if(!letraexiste(chutes[i])) { //
+		if(!letraexiste(chutes[i])) {
 			erros++;
 		}
 	}
 	return erros;
 }
 
-//
 int enforcou() {
 	return chuteserrados() >= 5;
 }
 
-//
 int ganhou() {
 	for(int i = 0; i < strlen(palavrasecreta)) {
 		if(!jachutou(palavrasecreta[i])) {
@@ -128,26 +123,23 @@ void escolhepalavra() {
 	
 	f = fopen("palavras.txt", "r"); //
 	
-	//
-	if(f == 0) {
-		printf("Banco de dados de palavras nÃ£o disponÃ­vel\n\n");
+	if(f == NULL) {
+		printf("Banco de dados de palavras não disponí­vel\n\n");
 		exit(1);
 	}
 
 	int qtddepalavras;
 
-	fscanf(f, "%d", &qtddepalavras); //
+	fscanf(f, "%d", &qtddepalavras);
 
-	//
 	srand(time(0));
 	int randomico = rand() % qtddepalavras;
 
-	//
 	for(int i = 0; i < randomico; i++) {
-		fscanf(f, "%s", palavrasecreta); //
+		fscanf(f, "%s", palavrasecreta);
 	}
 
-	fclose(f); //
+	fclose(f);
 }
 
 //
