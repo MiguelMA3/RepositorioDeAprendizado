@@ -3,7 +3,7 @@
 #include <locale.h>
 #include <math.h>
 
-// Portais Mágicos que emitem Cristais Bituca (B$)
+// Portais MÃ¡gicos que emitem Cristais Bituca (B$)
 
 int PortalMagico(int saque) {
 	
@@ -13,7 +13,7 @@ int PortalMagico(int saque) {
 	
 	int cristal_vermelho, cristal_azul, cristal_amarelo, cristal_verde, cristal_preto, cristal_branco, cristal_rosa;
 	int i = 0;
-	//  posição, contador
+	//  posiÃ§Äƒo, contador
 	
 	do {
 	    switch(i) {
@@ -44,11 +44,10 @@ int PortalMagico(int saque) {
 	        case 6:
 	            cristal_rosa = sobrou / cristais[i];
 	            sobrou = sobrou % cristais[i];
-	            i++;
-	            
+	            i++;      
 	    }
 	    
-	    printf("Você sacou B$ %d e recebeu: \n", saque);
+	    printf("VocÄ™ sacou B$ %d e recebeu: \n", saque);
 	    printf("\n %d cristais vermelhos", cristal_vermelho);
 	    printf("\n %d cristais azuis", cristal_azul);
 	    printf("\n %d cristais amarelos", cristal_amarelo);
@@ -65,7 +64,7 @@ void main() {
 	
 	int saque;
 	
-	printf("|| Portal Mágico de Cristais Bituca ||");
+	printf("|| Portal MÃ¡gico de Cristais Bituca ||");
 	fflush(stdin);
 	printf("\n\nInsira quantos B$ deseja sacar: ");
 	scanf("%d", &saque);
