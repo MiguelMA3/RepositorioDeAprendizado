@@ -39,8 +39,8 @@
        input.focus();
 
        function verifica() {
-              var inputValue = input.value;
-              if (secrets.includes(inputValue)) {
+              var inputValue = parseInt(input.value, 10);
+              if (!isNaN(inputValue) && secrets.includes(inputValue)) {
                      alert("You're Right!");
               } else {
                      alert("You're Wrong!");
