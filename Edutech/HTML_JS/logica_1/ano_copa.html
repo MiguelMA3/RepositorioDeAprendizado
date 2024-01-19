@@ -1,29 +1,18 @@
 <meta charset="UTF-8">
-
 <script>
+    function breakLine() {
+        document.write("<br><br>");
+    }
+    function show(phrase) {
+        document.write(phrase);
+        breakLine();
+    }
 
-    function pulaLinha() {
-
-        document.write("<br>");
-        document.write("<br>");
-}
-
-    function mostra(frase) {
-
-        document.write(frase);
-        pulaLinha();
-}
-
-var limite = parseInt(prompt("Entre com o ano atual"))
-var anoCopa = 1930;
-
-while(anoCopa <= limite) {
-
-	mostra("Teve copa em " + anoCopa);
-	anoCopa = anoCopa + 4;
-
-}
-
-mostra ("A próxima copa será em " + anoCopa);
-
+    var limit = parseInt(prompt("Input the Current Year"))
+    var anoCopa = 1930;
+    while (anoCopa <= limit) {
+        show("There was a Cup in " + anoCopa);
+        anoCopa = anoCopa + 4;
+    }
+    show("The next World Cup will be in " + anoCopa);
 </script>
