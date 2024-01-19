@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
        <meta charset="UTF-8">
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
        <title>Document</title>
 </head>
+
 <body>
        <h1>Guess the number I'm thinking about!</h1>
        <input />
        <button type="button" name="guess">Guess</button>
 </body>
+
 </html>
 
 <script>
@@ -18,21 +21,13 @@
        }
        function sorteiaNums(quant) {
               var secrets = [];
-              var num = 1;
-              while (num <= quant) {
+              var num = 0;
+
+              while (num < quant) {
                      var randomNum = sorteia();
-                     var found = false;
-                     if (randomNum !== 0) {
-                            for (var i = 0; i < secrets.length; i++) {
-                                   if (secrets[i] == randomNum) {
-                                          found = true;
-                                          break;
-                                   }
-                            }
-                            if (found == false) {
-                                   secrets.push(randomNum);
-                                   num++;
-                            }
+                     if (randomNum !== 0 && !secrets.includes(randomNum)) {
+                            secrets.push(randomNum);
+                            num++;
                      }
               }
               return secrets;
@@ -40,25 +35,20 @@
 
        var secrets = sorteiaNums(5);
        console.log(secrets);
-
        var input = document.querySelector("input");
        input.focus();
 
        function verifica() {
-              var found = false;
-              for (var i = 0; i < secrets.length; i++) {
-                     if (input.value == secrets[i]) {
-                            alert("You're Right!");
-                            found = true;
-                            break;
-                     }
-              }
-              if (found == false) {
+              var inputValue = input.value;
+              if (secrets.includes(inputValue)) {
+                     alert("You're Right!");
+              } else {
                      alert("You're Wrong!");
               }
               input.value = "";
               input.focus();
        }
+
        var button = document.querySelector("button[name='guess']");
-       button.onclick = verifica;
+       button.addEventListener("click", verifica);
 </script>
