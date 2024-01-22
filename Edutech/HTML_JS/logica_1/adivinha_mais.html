@@ -1,82 +1,54 @@
-<meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="en">
 
-<h1>Vamos brincar de adivinhação!</h1>
+<head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>Guess the Number</title>
+</head>
 
-<input/>
-<button>Em que número estou pensando?</button>
+<body>
+       <h1>Guess the number I'm thinking about!</h1>
+       <input />
+       <button type="button" name="guess">Guess</button>
+</body>
+
+</html>
 
 <script>
-    function sorteia() {
+       function sorteia() {
+              return Math.round(Math.random() * 10);
+       }
+       function sorteiaNums(quant) {
+              var secrets = [];
+              var num = 0;
 
-       return Math.round(Math.random() * 10);
-
-    }
-//length conta o tamanho do array []
-    function sorteiaNumeros(quantidade) {
-
-        var segredos = [];
-        var numero = 1;
-
-        while(numero <= quantidade) {
-
-              var numeroAleatorio = sorteia();
-              var achou = false;
-
-              if (numeroAleatorio !== 0) {
-                     for(var posicao = 0; posicao < segredos.length; posicao++) {
-
-                           if(segredos[posicao] == numeroAleatorio){
-                                achou = true;
-                                break;
-                           }
-
-                     }
-
-                     if (achou == false) {
-                           segredos.push(numeroAleatorio);
-                           numero++;
+              while (num < quant) {
+                     var randomNum = sorteia();
+                     if (randomNum !== 0 && !secrets.includes(randomNum)) {
+                            secrets.push(randomNum);
+                            num++;
                      }
               }
-
-        }
-
-        return segredos;
-
-    }
-
-    var segredos = sorteiaNumeros(5);
-
-    console.log(segredos);
-
-    var input = document.querySelector("input");
-    input.focus();
-
-    function verifica() {
-
-       var achou = false;
-
-       for(var posicao = 0; posicao < segredos.length; posicao++) {
-
-              if(input.value == segredos[posicao]) {
-
-                     alert("Você ACERTOU!");
-                     achou = true;
-                     break;
-              } 
+              return secrets;
        }
 
-       if(achou == false) {
-
-              alert("Você ERROU!");
-       }
-
-       input.value = "";
+       var secrets = sorteiaNums(5);
+       console.log(secrets);
+       var input = document.querySelector("input");
        input.focus();
 
-    }
+       function verifica() {
+              var inputValue = parseInt(input.value, 10);
+              if (!isNaN(inputValue) && secrets.includes(inputValue)) {
+                     alert("You're Right!");
+              } else {
+                     alert("You're Wrong!");
+              }
+              input.value = "";
+              input.focus();
+       }
 
-    var button = document.querySelector("button");
-
-    button.onclick = verifica;
-
+       var button = document.querySelector("button[name='guess']");
+       button.addEventListener("click", verifica);
 </script>

@@ -3,24 +3,22 @@ from abc import ABCMeta, abstractmethod
 import random
 
 pygame.init()
-
 screen = pygame.display.set_mode((800, 600), 0)
 font = pygame.font.SysFont("arial", 20, True, False)
 
-AMARELO = (255, 255, 0)
-PRETO = (0, 0, 0)
-AZUL = (0, 0, 255)
-VERMELHO = (255, 0, 0)
-BRANCO = (255, 255, 255)
-LARANJA = (255, 140, 0)
-ROSA = (255, 15, 192)
-CIANO = (0, 255, 255)
-VELOCIDADE = 1
-ACIMA = 1
-ABAIXO = 2
-DIREITA = 3
-ESQUERDA = 4
-
+yellow = (255, 255, 0)
+black = (0, 0, 0)
+blue = (0, 0, 255)
+red = (255, 0, 0)
+white = (255, 255, 255)
+orange = (255, 140, 0)
+pink = (255, 15, 192)
+cyan = (0, 255, 255)
+vel = 1
+up = 1
+down = 2
+right = 3
+left = 4
 
 class ElementoJogo(metaclass=ABCMeta):
     @abstractmethod
@@ -96,8 +94,8 @@ class Cenario(ElementoJogo):
 
     def pintar_score(self, tela):
         pontos_x = self.tamanho * 30
-        pontos_img = font.render("Score {}".format(self.pontos), True, AMARELO)
-        vidas_img = font.render("Vidas {}".format(self.vidas), True, AMARELO)
+        pontos_img = font.render("Score {}".format(self.pontos), True, yellow)
+        vidas_img = font.render("Vidas {}".format(self.vidas), True, yellow)
         tela.blit(pontos_img, (pontos_x, 50))
         tela.blit(vidas_img, (pontos_x, 100))
 
@@ -106,12 +104,12 @@ class Cenario(ElementoJogo):
             x = numero_coluna * self.tamanho
             y = numero_linha * self.tamanho
             half = self.tamanho // 2
-            cor = PRETO
+            cor = black
             if coluna == 2:
-                cor = AZUL
+                cor = blue
             pygame.draw.rect(tela, cor, (x, y, self.tamanho, self.tamanho), 0)
             if coluna == 1:
-                pygame.draw.circle(tela, AMARELO, (x + half, y + half),
+                pygame.draw.circle(tela, yellow, (x + half, y + half),
                                    self.tamanho // 10, 0)
 
     def pintar(self, tela):
@@ -128,7 +126,7 @@ class Cenario(ElementoJogo):
             self.pintar_vitoria(tela)
 
     def pintar_texto_centro(self, tela, texto):
-        texto_img = font.render(texto, True, AMARELO)
+        texto_img = font.render(texto, True, yellow)
         texto_x = (tela.get_width() - texto_img.get_width()) // 2
         texto_y = (tela.get_height() - texto_img.get_height()) // 2
         tela.blit(texto_img, (texto_x, texto_y))
@@ -150,13 +148,13 @@ class Cenario(ElementoJogo):
     def get_direcoes(self, linha, coluna):
         direcoes = []
         if self.matriz[int(linha - 1)][int(coluna)] != 2:
-            direcoes.append(ACIMA)
+            direcoes.append(up)
         if self.matriz[int(linha + 1)][int(coluna)] != 2:
-            direcoes.append(ABAIXO)
+            direcoes.append(down)
         if self.matriz[int(linha)][int(coluna - 1)] != 2:
-            direcoes.append(ESQUERDA)
+            direcoes.append(left)
         if self.matriz[int(linha)][int(coluna + 1)] != 2:
-            direcoes.append(DIREITA)
+            direcoes.append(right)
         return direcoes
 
     def calcular_regras(self):
@@ -227,7 +225,7 @@ class Pacman(ElementoJogo, Movivel):
         self.coluna_intencao = self.coluna
         self.linha_intencao = self.linha
         self.abertura = 0
-        self.velocidade_abertura = 1
+        self.vel_abertura = 1
 
     def calcular_regras(self):
         self.coluna_intencao = self.coluna + self.vel_x
@@ -237,38 +235,38 @@ class Pacman(ElementoJogo, Movivel):
 
     def pintar(self, tela):
         # Desenhar o corpo do Pacman
-        pygame.draw.circle(tela, AMARELO, (self.centro_x, self.centro_y), self.raio, 0)
+        pygame.draw.circle(tela, yellow, (self.centro_x, self.centro_y), self.raio, 0)
 
-        self.abertura += self.velocidade_abertura
+        self.abertura += self.vel_abertura
         if self.abertura > self.raio:
-            self.velocidade_abertura = -1
+            self.vel_abertura = -1
         if self.abertura <= 0:
-            self.velocidade_abertura = 1
+            self.vel_abertura = 1
 
         # Desenho da boca do Pacman
         canto_boca = (self.centro_x, self.centro_y)
         labio_superior = (self.centro_x + self.raio, self.centro_y - self.abertura)
         labio_inferior = (self.centro_x + self.raio, self.centro_y + self.abertura)
         pontos = [canto_boca, labio_superior, labio_inferior]
-        pygame.draw.polygon(tela, PRETO, pontos, 0)
+        pygame.draw.polygon(tela, black, pontos, 0)
 
         # Olho do Pacman
         olho_x = int(self.centro_x + self.raio / 3)
         olho_y = int(self.centro_y - self.raio * 0.70)
         olho_raio = int(self.raio / 10)
-        pygame.draw.circle(tela, PRETO, (olho_x, olho_y), olho_raio, 0)
+        pygame.draw.circle(tela, black, (olho_x, olho_y), olho_raio, 0)
 
     def processar_eventos(self, eventos):
         for e in eventos:
             if e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_RIGHT:
-                    self.vel_x = VELOCIDADE
+                    self.vel_x = vel
                 elif e.key == pygame.K_LEFT:
-                    self.vel_x = -VELOCIDADE
+                    self.vel_x = -vel
                 elif e.key == pygame.K_UP:
-                    self.vel_y = -VELOCIDADE
+                    self.vel_y = -vel
                 elif e.key == pygame.K_DOWN:
-                    self.vel_y = VELOCIDADE
+                    self.vel_y = vel
             elif e.type == pygame.KEYUP:
                 if e.key == pygame.K_RIGHT:
                     self.vel_x = 0
@@ -297,8 +295,8 @@ class Fantasma(ElementoJogo, Movivel):
         self.linha = 15.0
         self.linha_intencao = self.linha
         self.coluna_intencao = self.coluna
-        self.velocidade = 1
-        self.direcao = ABAIXO
+        self.vel = 1
+        self.direcao = down
         self.tamanho = tamanho
         self.cor = cor
 
@@ -325,20 +323,20 @@ class Fantasma(ElementoJogo, Movivel):
         olho_d_x = int(px + fatia * 5.5)
         olho_d_y = int(py + fatia * 2.5)
 
-        pygame.draw.circle(tela, BRANCO, (olho_e_x, olho_e_y), olho_raio_ext, 0)
-        pygame.draw.circle(tela, PRETO, (olho_e_x, olho_e_y), olho_raio_int, 0)
-        pygame.draw.circle(tela, BRANCO, (olho_d_x, olho_d_y), olho_raio_ext, 0)
-        pygame.draw.circle(tela, PRETO, (olho_d_x, olho_d_y), olho_raio_int, 0)
+        pygame.draw.circle(tela, white, (olho_e_x, olho_e_y), olho_raio_ext, 0)
+        pygame.draw.circle(tela, black, (olho_e_x, olho_e_y), olho_raio_int, 0)
+        pygame.draw.circle(tela, white, (olho_d_x, olho_d_y), olho_raio_ext, 0)
+        pygame.draw.circle(tela, black, (olho_d_x, olho_d_y), olho_raio_int, 0)
 
     def calcular_regras(self):
-        if self.direcao == ACIMA:
-            self.linha_intencao -= self.velocidade
-        elif self.direcao == ABAIXO:
-            self.linha_intencao += self.velocidade
-        elif self.direcao == ESQUERDA:
-            self.coluna_intencao -= self.velocidade
-        elif self.direcao == DIREITA:
-            self.coluna_intencao += self.velocidade
+        if self.direcao == up:
+            self.linha_intencao -= self.vel
+        elif self.direcao == down:
+            self.linha_intencao += self.vel
+        elif self.direcao == left:
+            self.coluna_intencao -= self.vel
+        elif self.direcao == right:
+            self.coluna_intencao += self.vel
 
     def mudar_direcao(self, direcoes):
         self.direcao = random.choice(direcoes)
@@ -362,10 +360,10 @@ class Fantasma(ElementoJogo, Movivel):
 if __name__ == "__main__":
     size = 600 // 30
     pacman = Pacman(size)
-    blinky = Fantasma(VERMELHO, size)
-    inky = Fantasma(CIANO, size)
-    clyde = Fantasma(LARANJA, size)
-    pinky = Fantasma(ROSA, size)
+    blinky = Fantasma(red, size)
+    inky = Fantasma(cyan, size)
+    clyde = Fantasma(orange, size)
+    pinky = Fantasma(pink, size)
     cenario = Cenario(size, pacman)
     cenario.adicionar_movivel(pacman)
     cenario.adicionar_movivel(blinky)
@@ -384,7 +382,7 @@ if __name__ == "__main__":
         cenario.calcular_regras()
 
         # Pintar a tela
-        screen.fill(PRETO)
+        screen.fill(black)
         cenario.pintar(screen)
         pacman.pintar(screen)
         blinky.pintar(screen)
